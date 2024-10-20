@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: profile-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/profiledb
+    username: root
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  liquibase:
+    url: jdbc:mysql://localhost:3306/profiledb
+    enabled: true
+    user: root
+    password: 12345678
+    change-log: classpath:db/changelog/changelog-master.xml
+  kafka:
+    bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
+#      - localhost:9093
+#      - localhost:9094
+    acks: 1
+
+server:
+  port: 9214
