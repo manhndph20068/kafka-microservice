@@ -18,7 +18,7 @@ public class ProfileDTO {
 
     private String role;
 
-    private double initalBalance;
+    private Double initalBalance;
 
     public static Profile dtoToEntity(ProfileDTO profileDTO) {
         return Profile.builder()
