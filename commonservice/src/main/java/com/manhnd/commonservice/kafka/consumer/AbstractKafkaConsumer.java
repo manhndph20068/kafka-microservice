@@ -1,11 +1,9 @@
 package com.manhnd.commonservice.kafka.consumer;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaListener;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 
 @Slf4j
 public abstract class AbstractKafkaConsumer<T> {
@@ -23,7 +21,7 @@ public abstract class AbstractKafkaConsumer<T> {
             T typedMessage = objectMapper.readValue(message, getMessageType());
             processMessage(typedMessage);
         } catch (JsonProcessingException e) {
-            log.error("[ERROR] consume Lỗi khi chuyển đổi JSON thành object: " + message, e);
+            log.error("[ERROR] consume Lỗi khi chuyển đổi JSON thành object: " + message, e.getMessage());
         } catch (Exception e) {
             log.error("[ERROR] consume Lỗi khi xử lý tin nhắn Kafka: " + message, e);
         }

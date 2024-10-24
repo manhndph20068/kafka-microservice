@@ -8,4 +8,6 @@ public interface IProfileService {
     List<ProfileDTO> getAllProfiles();
 
     ProfileDTO createProfile(ProfileDTO profileDTO);
+
+    ProfileDTO updateProfile(ProfileDTO profileDTO);
 }

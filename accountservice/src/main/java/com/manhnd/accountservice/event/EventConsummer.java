@@ -1,16 +1,20 @@
 package com.manhnd.accountservice.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.manhnd.accountservice.service.IServiceAccountService;
 import com.manhnd.commonservice.kafka.constant.KafkaConstant;
 import com.manhnd.commonservice.kafka.consumer.AbstractKafkaConsumer;
 import com.manhnd.commonservice.kafka.events.profile.ProfileCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class EventConsummer extends AbstractKafkaConsumer<ProfileCreatedEvent> {
 
+    @Autowired
+    private IServiceAccountService iServiceAccountService;
 
     protected EventConsummer(ObjectMapper objectMapper) {
         super(objectMapper);
@@ -19,9 +23,7 @@ public class EventConsummer extends AbstractKafkaConsumer<ProfileCreatedEvent> {
     @Override
     protected void processMessage(ProfileCreatedEvent message) {
         log.info("Consumed message: " + message.toString() + " at "+ message.getTimestamp()+ " with id: " + message.getEventId() + " with type: " + message.getEventType() + " with topic: " + getTopic() + " with group id: " + getGroupId());
-
-
-
+        iServiceAccountService.createAccount(message);
     }
 
     @Override

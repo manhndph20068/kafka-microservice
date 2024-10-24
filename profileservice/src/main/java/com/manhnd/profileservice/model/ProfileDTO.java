@@ -10,6 +10,8 @@ import lombok.*;
 @Builder
 public class ProfileDTO {
 
+    private Long id;
+
     private String email;
 
     private String name;

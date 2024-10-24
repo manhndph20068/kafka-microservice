@@ -72,6 +72,19 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="table-account-add-column-status" author="account">
+        <preConditions onFail="CONTINUE" onFailMessage="column status already exists">
+            <not>
+                <columnExists tableName="account" columnName="status"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="account">
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="table-account-add-column-version" author="profile">
         <preConditions onFail="CONTINUE" onFailMessage="column version already exists">
             <not>
