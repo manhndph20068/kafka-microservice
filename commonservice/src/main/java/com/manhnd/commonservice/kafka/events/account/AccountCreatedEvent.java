@@ -10,6 +10,8 @@ public class AccountCreatedEvent extends BaseEvent {
     private Long idProfile;
     private String email;
 
+    private String status;
+
     public AccountCreatedEvent() {
         setEventType("ACCOUNT_CREATED");
     }

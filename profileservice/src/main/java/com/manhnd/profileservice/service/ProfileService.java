@@ -77,4 +77,10 @@ public class ProfileService implements IProfileService {
         return ProfileDTO.entityToDTO(profileSave);
     }
 
+    @Override
+    public ProfileDTO test(String node) {
+        eventProducer.sendEvent("test", node);
+        return null;
+    }
+
 }

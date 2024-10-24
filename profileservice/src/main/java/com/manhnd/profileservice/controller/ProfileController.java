@@ -26,4 +26,9 @@ public class ProfileController {
         return ServiceResult.okEntity(profileService.createProfile(profileDTO));
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<ServiceResult<ProfileDTO>> test() {
+        return ServiceResult.okEntity(profileService.test("test chuyen topic"));
+    }
+
 }

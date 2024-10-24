@@ -24,7 +24,7 @@ public class EventConsummer extends AbstractKafkaConsumer<AccountCreatedEvent> {
     protected void processMessage(AccountCreatedEvent message) {
         ProfileDTO profileDTO = new ProfileDTO();
         profileDTO.setId(message.getIdProfile());
-        profileDTO.setStatus("SUCCESS");
+        profileDTO.setStatus(message.getStatus());
         iProfileService.updateProfile(profileDTO);
     }
 

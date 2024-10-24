@@ -20,10 +20,11 @@ public class EventProducer {
         iKafkaProducer.sendMessage(topic, message);
     }
 
-    public void sendAccountCreatedEvent(AccountDTO accountDTO, Long idProfile) {
+    public void sendAccountCreatedEvent(AccountDTO accountDTO, Long idProfile, String status) {
         AccountCreatedEvent event = new AccountCreatedEvent();
         event.setIdProfile(idProfile);
         event.setEmail(accountDTO.getEmail());
+        event.setStatus(status);
         iKafkaProducer.sendMessage(KafkaConstant.PROFILE_ONBOARDED_TOPIC, event);
     }
 }

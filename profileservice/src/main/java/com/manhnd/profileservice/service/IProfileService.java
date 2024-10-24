@@ -10,4 +10,6 @@ public interface IProfileService {
     ProfileDTO createProfile(ProfileDTO profileDTO);
 
     ProfileDTO updateProfile(ProfileDTO profileDTO);
+
+    ProfileDTO test(String node);
 }

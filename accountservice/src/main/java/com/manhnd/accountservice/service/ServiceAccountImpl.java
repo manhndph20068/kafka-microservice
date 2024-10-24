@@ -22,22 +22,26 @@ public class ServiceAccountImpl implements IServiceAccountService{
 
     @Override
     public AccountDTO createAccount(ProfileCreatedEvent profileCreatedEvent) {
-        Optional<Account> accountOp = iAccountRepository.findByEmail(profileCreatedEvent.getEmail());
-        if (accountOp.isPresent()) {
-            throw new CommonException("Email đã tồn tại");
+        try {
+            Optional<Account> accountOp = iAccountRepository.findByEmail(profileCreatedEvent.getEmail());
+            if (accountOp.isPresent()) {
+                throw new CommonException("Email đã tồn tại");
+            }
+            AccountDTO accountDTO = new AccountDTO();
+            accountDTO.setEmail(profileCreatedEvent.getEmail());
+            accountDTO.setStatus("SUCCESS");
+            accountDTO.setCurrency("VND");
+            accountDTO.setBalance(profileCreatedEvent.getInitialBalance());
+            accountDTO.setReserved(0.0);
+            Account account = AccountDTO.dtoToEntity(accountDTO);
+            Account accountSave = iAccountRepository.save(account);
+
+            eventProducer.sendAccountCreatedEvent(accountDTO, profileCreatedEvent.getId(), "SUCCESS");
+            return AccountDTO.entityToDTO(accountSave);
+        } catch (Exception e) {
+            eventProducer.sendAccountCreatedEvent(null, profileCreatedEvent.getId(), "FAIL");
+            return null;
         }
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setEmail(profileCreatedEvent.getEmail());
-        accountDTO.setStatus("SUCCESS");
-        accountDTO.setCurrency("VND");
-        accountDTO.setBalance(profileCreatedEvent.getInitialBalance());
-        accountDTO.setReserved(0.0);
-        Account account = AccountDTO.dtoToEntity(accountDTO);
-        Account accountSave = iAccountRepository.save(account);
-        if (accountSave == null) {
-            throw new CommonException("Thêm mới thất bại");
-        }
-        eventProducer.sendAccountCreatedEvent(accountDTO, profileCreatedEvent.getId());
-        return AccountDTO.entityToDTO(accountSave);
     }
+
 }
