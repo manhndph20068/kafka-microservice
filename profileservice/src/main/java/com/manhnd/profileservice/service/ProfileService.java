@@ -51,7 +51,7 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public ProfileDTO updateProfile(ProfileDTO profileDTO) {
+    public void updateProfile(ProfileDTO profileDTO) {
         Optional<Profile> profileOp = profileRepository.findById(profileDTO.getId());
         if (profileOp.isEmpty()) {
             throw new CommonException("Không tìm thấy profile");
@@ -74,7 +74,7 @@ public class ProfileService implements IProfileService {
         if (profileSave == null) {
             throw new CommonException("Cập nhật thất bại");
         }
-        return ProfileDTO.entityToDTO(profileSave);
+        ProfileDTO.entityToDTO(profileSave);
     }
 
     @Override

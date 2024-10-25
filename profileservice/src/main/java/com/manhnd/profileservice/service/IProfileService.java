@@ -1,7 +1,6 @@
 package com.manhnd.profileservice.service;
 
 import com.manhnd.profileservice.model.ProfileDTO;
-import com.manhnd.profileservice.utils.anotation.KafkaEventLog;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ public interface IProfileService {
 
     ProfileDTO createProfile(ProfileDTO profileDTO);
 
-    ProfileDTO updateProfile(ProfileDTO profileDTO);
+    void updateProfile(ProfileDTO profileDTO);
 
     void test(String node);
 }
