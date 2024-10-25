@@ -3,6 +3,7 @@ package com.manhnd.profileservice.controller;
 import com.manhnd.commonservice.model.ServiceResult;
 import com.manhnd.profileservice.model.ProfileDTO;
 import com.manhnd.profileservice.service.IProfileService;
+import com.manhnd.profileservice.utils.anotation.KafkaEventLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +22,15 @@ public class ProfileController {
         return ServiceResult.okEntity(profileService.getAllProfiles());
     }
 
+    @KafkaEventLog(eventType = "TEST_EVENT")
     @PostMapping
     public ResponseEntity<ServiceResult<ProfileDTO>> createProfile(@RequestBody ProfileDTO profileDTO) {
         return ServiceResult.okEntity(profileService.createProfile(profileDTO));
     }
 
     @GetMapping("/test")
-    public ResponseEntity<ServiceResult<ProfileDTO>> test() {
-        return ServiceResult.okEntity(profileService.test("test chuyen topic"));
+    public void test() {
+         profileService.test("test chuyen topic");
     }
 
 }

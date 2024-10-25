@@ -1,6 +1,7 @@
 package com.manhnd.profileservice.service;
 
 import com.manhnd.profileservice.model.ProfileDTO;
+import com.manhnd.profileservice.utils.anotation.KafkaEventLog;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface IProfileService {
 
     ProfileDTO updateProfile(ProfileDTO profileDTO);
 
-    ProfileDTO test(String node);
+    void test(String node);
 }

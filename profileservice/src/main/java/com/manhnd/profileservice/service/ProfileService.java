@@ -78,9 +78,8 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public ProfileDTO test(String node) {
+    public void test(String node) {
         eventProducer.sendEvent("test", node);
-        return null;
     }
 
 }
